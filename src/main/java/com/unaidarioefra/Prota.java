@@ -6,19 +6,19 @@ public class Prota extends Personaje {
     // Atributos del personaje con sus rangos específicos
     private int salud;    // debe estar entre 1 y 20
     private int ataque;   // debe estar entre 1 y 20
-    private int defensa;  // debe estar entre 0 y 100
-    private int evasion;  // debe estar entre 0 y 100
+    private int defensa;  // debe estar entre 0 y 20
+    private int evasion;  // debe estar entre 0 y 20
 
     // Constructor: crea un nuevo protagonista con los valores iniciales
     public Prota(int salud, int ataque, int defensa, int evasion) {
         setSalud(salud);       // se valida al asignar
-        setAtaque(ataque);     // se valida al asignar
-        setDefensa(defensa);   // se valida al asignar
-        setEvasion(evasion);   // se valida al asignar
+        setAtaque(ataque);     
+        setDefensa(defensa);   
+        setEvasion(evasion);   
     }
 
-    // Métodos "getter" (obtener) y "setter" (asignar) para cada atributo
-    // Incluyen validaciones para asegurarse de que los valores estén dentro de los límites permitidos
+    // Métodos "getter" y "setter" para cada atributo
+    // Incluyen validaciones para asegurarse de que los valores esten dentro de los limites permitidos
 
     public int getSalud() { return salud; }
 

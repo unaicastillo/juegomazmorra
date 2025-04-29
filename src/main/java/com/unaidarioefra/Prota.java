@@ -11,59 +11,38 @@ public class Prota extends Personaje {
 
     // Constructor: crea un nuevo protagonista con los valores iniciales
     public Prota(int salud, int ataque, int defensa, int evasion) {
-        setSalud(salud);       // se valida al asignar
-        setAtaque(ataque);     
-        setDefensa(defensa);   
-        setEvasion(evasion);   
+        this.salud = salud;
+        this.ataque = ataque;
+        this.defensa = defensa;
+        this.evasion = evasion;
     }
 
-    // Métodos "getter" y "setter" para cada atributo
-    // Incluyen validaciones para asegurarse de que los valores esten dentro de los limites permitidos
 
-    public int getSalud() { return salud; }
-
+    public int getSalud() {
+        return this.salud;
+    }
     public void setSalud(int salud) {
-        if (salud >= 1 && salud <= 20)
-            this.salud = salud;
-        else
-            throw new IllegalArgumentException("Salud debe estar entre 1 y 20.");
+        this.salud = salud;
     }
 
-    public int getAtaque() { return ataque; }
-
+    public int getAtaque() {
+        return this.ataque;
+    }
     public void setAtaque(int ataque) {
-        if (ataque >= 1 && ataque <= 20)
-            this.ataque = ataque;
-        else
-            throw new IllegalArgumentException("Ataque debe estar entre 1 y 20.");
+        this.ataque = ataque;
     }
 
-    public int getDefensa() { return defensa; }
-
+    public int getDefensa() {
+        return this.defensa;
+    }
     public void setDefensa(int defensa) {
-        if (defensa >= 0 && defensa <= 20)
-            this.defensa = defensa;
-        else
-            throw new IllegalArgumentException("Defensa debe estar entre 0 y 100.");
+        this.defensa = defensa;
     }
 
-    public int getEvasion() { return evasion; }
-
+    public int getEvasion() {
+        return this.evasion;
+    }
     public void setEvasion(int evasion) {
-        if (evasion >= 0 && evasion <= 20)
-            this.evasion = evasion;
-        else
-            throw new IllegalArgumentException("Evasión debe estar entre 0 y 100.");
-    }
-
-    // Método que devuelve una representación en texto del objeto protagonista
-    @Override
-    public String toString() {
-        return "Protagonista{" +
-                "salud=" + salud +
-                ", ataque=" + ataque +
-                ", defensa=" + defensa +
-                ", evasion=" + evasion +
-                '}';
+        this.evasion = evasion;
     }
 }

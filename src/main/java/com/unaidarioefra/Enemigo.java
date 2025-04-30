@@ -4,7 +4,7 @@ package com.unaidarioefra;
 public class Enemigo extends Entidad {
 
     // Constructor: crea un nuevo enemigo con los valores iniciales
-    public Enemigo(int salud, int ataque, int defensa, int evasion) {
-        super(salud, ataque, defensa, evasion);
+    public Enemigo(String tipo, int salud, int ataque, int defensa, int evasion) {
+        super(tipo, salud, ataque, defensa, evasion);
     }
 }

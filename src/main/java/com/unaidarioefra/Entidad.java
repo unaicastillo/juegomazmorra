@@ -1,16 +1,25 @@
 package com.unaidarioefra;
 
 public class Entidad {
+    protected String tipo;
     protected int salud;
     protected int ataque;
     protected int evasion;
     protected int defensa;
     
-    public Entidad(int salud, int ataque, int evasion, int defensa) {
+    public Entidad(String tipo, int salud, int ataque, int evasion, int defensa) {
+        this.tipo = tipo;
         this.salud = salud;
         this.ataque = ataque;
         this.evasion = evasion;
         this.defensa = defensa;
+    }
+
+    public String getTipo(String tipo) {
+        return this.tipo;
+    }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public int getSalud() {

@@ -4,7 +4,7 @@ package com.unaidarioefra;
 public class Prota extends Entidad {
 
     // Constructor: crea un nuevo protagonista con los valores iniciales
-    public Prota(int salud, int ataque, int defensa, int evasion) {
-        super(salud, ataque, defensa, evasion);
+    public Prota(String tipo, int salud, int ataque, int defensa, int evasion) {
+        super(tipo, salud, ataque, defensa, evasion);
     }
 }

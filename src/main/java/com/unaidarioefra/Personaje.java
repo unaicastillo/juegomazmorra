@@ -1,7 +1,9 @@
 package com.unaidarioefra;
 
+import java.util.Random;
+
 public class Personaje implements Movement{
-    
+    private Random r = new Random();
     private int salud;  //1-20
     private int ataque; //1-20
     private int defensa;//0-100
@@ -57,15 +59,32 @@ public class Personaje implements Movement{
 
 
     @Override
-    public void ataque() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'ataque'");
+    public void atacar(int damage) {
+        //TODO Auto-generated method stub
+        //throw new UnsupportedOperationException("Unimplemented method 'ataque'");
 
-        
+        //1º esquiva el ataque
+        if(r.nextInt(101)>=evasion){
+            //No ataca
+            //Mensaje "Esquivado"
+        }
+        else {
+            if(defensa > damage){
+                setDefensa(defensa-ataque);
+                //Ataca con ataque/2
+            }
+            else{// 
+                setDefensa(0);
+                setSalud(ataque-defensa+defensa/2);
+            }
+        }
+
 
         //  e2.VidaFinal = e2.Vida-e1.ataque/(e2.defensa*0,01+1)
         //  e2 -> atacado     e1 -> atacante
     }
+
+
 
 
     @Override

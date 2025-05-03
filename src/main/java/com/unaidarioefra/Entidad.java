@@ -1,6 +1,10 @@
 package com.unaidarioefra;
 
+import java.util.Random;
+
 public class Entidad {
+
+    protected Random r = new Random();
     protected String tipo;
     protected int salud;
     protected int ataque;
@@ -48,5 +52,27 @@ public class Entidad {
     }
     public void setEvasion(int evasion) {
         this.evasion = evasion;
+    }
+
+
+    //Metodo ser atacado
+    public void atacado(int damage) {   //damage = ataque (del atacante)
+
+        //1º esquiva el ataque
+        if(r.nextInt(101)>=evasion){
+            //No ataca
+            //Mensaje "Esquivado"
+        }
+        else {  
+            if(defensa > damage){
+                defensa -= ataque;
+                salud -= damage/2;
+            }
+            else{// 
+                
+                salud -= (ataque-defensa)+(defensa/2);
+                defensa = 0;
+            }
+        }
     }
 }

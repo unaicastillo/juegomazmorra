@@ -70,12 +70,13 @@ public class Personaje implements Movement{
         }
         else {
             if(defensa > damage){
-                setDefensa(defensa-ataque);
-                //Ataca con ataque/2
+                defensa -= ataque;
+                salud = damage/2;
             }
             else{// 
-                setDefensa(0);
-                setSalud(ataque-defensa+defensa/2);
+                
+                salud = (ataque-defensa)+(defensa/2);
+                defensa = 0;
             }
         }
 

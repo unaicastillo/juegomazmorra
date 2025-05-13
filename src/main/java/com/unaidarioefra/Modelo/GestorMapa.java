@@ -1,7 +1,10 @@
-package com.unaidarioefra;
+package com.unaidarioefra.Modelo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.unaidarioefra.Interfaz.Observer;
+import com.unaidarioefra.lectores.LectorMapa;
 
 public class GestorMapa {
     HashMap<String, Mapa> mapas;

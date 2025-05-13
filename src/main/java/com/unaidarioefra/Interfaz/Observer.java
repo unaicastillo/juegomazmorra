@@ -1,4 +1,4 @@
-package com.unaidarioefra;
+package com.unaidarioefra.Interfaz;
 
 public interface Observer {
 

@@ -1,12 +1,12 @@
 package com.unaidarioefra.lectores;
 
-import com.unaidarioefra.Enemigo;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.unaidarioefra.Modelo.Enemigo;
 
 public class LectorEnemigo {
     public static ArrayList<Enemigo> leerEnemigos() {

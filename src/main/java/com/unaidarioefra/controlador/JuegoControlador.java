@@ -1,12 +1,13 @@
 package com.unaidarioefra.controlador;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
-import com.unaidarioefra.GestorMapa;
-import com.unaidarioefra.Juego;
-import com.unaidarioefra.Mapa;
-import com.unaidarioefra.Observer;
+import com.unaidarioefra.Interfaz.Observer;
+import com.unaidarioefra.Modelo.Enemigo;
+import com.unaidarioefra.Modelo.GestorMapa;
+import com.unaidarioefra.Modelo.Juego;
+import com.unaidarioefra.Modelo.Mapa;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
@@ -14,21 +15,32 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class JuegoControlador implements Observer {
 
     @FXML
     private AnchorPane anchorPane;
-        GridPane gridPane ;
-        GestorMapa gestorMapa;
-        Juego juego;
+    @FXML
+    private GridPane gridPane;
 
-        @FXML
-        public void initialize() {
-         //TODO
-        }
+    private HashMap<Integer, Image> imagenesEnemigos;
+    private ArrayList<Enemigo> enemigos;
+
+    GestorMapa gestorMapa;
+    Juego juego;
+
+    @FXML
+    public void initialize() {
+        // Cargar imágenes de los enemigos
+        imagenesEnemigos = new HashMap<>();
+        imagenesEnemigos.put(2, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esbirro.png")));
+        imagenesEnemigos.put(3, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esqueleto.png")));
+        imagenesEnemigos.put(4, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/zombie.png")));
+
+        // Obtener la lista de enemigos desde el juego
+        enemigos = Juego.getInstance().getEnemigos();
+    }
     
     public void inicializarVista() {
         // Crear el SplitPane
@@ -61,8 +73,7 @@ public class JuegoControlador implements Observer {
         anchorPane.getChildren().add(splitPane);
     }
     
-    // public void generarMapa() 
-     public void generarMapa() {
+    public void generarMapa() {
         
         gridPane.getChildren().clear();
         Mapa mapaActual = Juego.getInstance().getGestorMapas().getMapaActual();
@@ -92,7 +103,6 @@ public class JuegoControlador implements Observer {
         }
     }
 
-    // public void cambiarMapa()
     public void cambiarMapa(){
         boolean haySiguiente=gestorMapa.avanzarAlSiguienteMapa();
         if (haySiguiente){
@@ -105,12 +115,40 @@ public class JuegoControlador implements Observer {
     }
 
     private void pintarPersonajes() {
-        // TODO
+        // Limpiar las imágenes de los enemigos en el mapa
+        gridPane.getChildren().removeIf(node -> node instanceof ImageView && node.getUserData() != null);
+
+        // Pintar cada enemigo en su posición
+        for (Enemigo enemigo : enemigos) {
+            ImageView enemigoView = new ImageView(imagenesEnemigos.get(enemigo.getTipo()));
+            enemigoView.setFitWidth(gridPane.getPrefWidth() / 20); // Ajustar al tamaño de la celda
+            enemigoView.setFitHeight(gridPane.getPrefHeight() / 20);
+            enemigoView.setPreserveRatio(true);
+            enemigoView.setUserData("enemigo"); // Marcar como enemigo para poder limpiar después
+            gridPane.add(enemigoView, enemigo.getPosicionX(), enemigo.getPosicionY());
+        }
+    }
+
+    private void moverEnemigos() {
+        // Mover cada enemigo a una nueva posición aleatoria dentro del mapa
+        for (Enemigo enemigo : enemigos) {
+            int nuevaX = enemigo.getPosicionX() + (int) (Math.random() * 3) - 1; // Movimiento aleatorio (-1, 0, 1)
+            int nuevaY = enemigo.getPosicionY() + (int) (Math.random() * 3) - 1;
+
+            // Asegurarse de que el enemigo no salga del mapa
+            nuevaX = Math.max(0, Math.min(nuevaX, 19));
+            nuevaY = Math.max(0, Math.min(nuevaY, 19));
+
+            // Actualizar la posición del enemigo
+            enemigo.setPosicionX(nuevaX);
+            enemigo.setPosicionY(nuevaY);
+        }
     }
 
     @Override
     public void onChange() {
-        // TODO 
-        //llamar a una funcion que actualice las imagenes de los personajes
+        // Mover enemigos y actualizar el mapa
+        moverEnemigos();
+        pintarPersonajes();
     }
 }

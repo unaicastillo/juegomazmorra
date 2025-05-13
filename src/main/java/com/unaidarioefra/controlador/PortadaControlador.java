@@ -2,12 +2,11 @@ package com.unaidarioefra.controlador;
 
 import com.unaidarioefra.SceneID;
 import com.unaidarioefra.SceneManager;
-import com.unaidarioefra.Prota;
+import com.unaidarioefra.Modelo.Prota;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
 
 public class PortadaControlador {
 
@@ -33,10 +32,10 @@ public class PortadaControlador {
 
     @FXML
     public void initialize() {
-        Prota prota = new Prota(0,0,0,0,0);
+        // Inicializar el protagonista
+        Prota protagonista ;
 
         // Añadir listeners para habilitar el botón solo cuando todos los campos estén rellenados
-
         vidaField.textProperty().addListener((observable, oldValue, newValue) -> validarCampos());
         ataqueField.textProperty().addListener((observable, oldValue, newValue) -> validarCampos());
         defensaField.textProperty().addListener((observable, oldValue, newValue) -> validarCampos());
@@ -57,16 +56,17 @@ public class PortadaControlador {
     @FXML
     private void cambiarAVistaJuego() {
         try {
-            
+            // Asignar valores a los atributos del protagonista
             prota.setVida(Integer.parseInt(vidaField.getText()));
             prota.setAtaque(Integer.parseInt(ataqueField.getText()));
             prota.setDefensa(Integer.parseInt(defensaField.getText()));
             prota.setEvasion(Integer.parseInt(evasionField.getText()));
             prota.setVelocidad(Integer.parseInt(velocidadField.getText()));
 
+            // Cambiar a la vista del juego
             SceneManager.getInstance().loadScene(SceneID.VistaJuego);
         } catch (NumberFormatException e) {
-            System.err.println("Rellena todos los campos correctamente.");
+            System.err.println("Error: Asegúrate de que todos los campos contienen números válidos.");
         }
     }
 }

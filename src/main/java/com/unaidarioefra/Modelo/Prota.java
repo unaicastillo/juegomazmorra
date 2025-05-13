@@ -1,4 +1,4 @@
-package com.unaidarioefra;
+package com.unaidarioefra.Modelo;
 
 public class Prota {
     public int vida;

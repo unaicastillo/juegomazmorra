@@ -1,9 +1,11 @@
-package com.unaidarioefra;
+package com.unaidarioefra.lectores;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import com.unaidarioefra.Modelo.Mapa;
 
 public class LectorMapa {
     public static ArrayList<Mapa> leerMapa() {

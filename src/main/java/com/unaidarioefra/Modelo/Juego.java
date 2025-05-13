@@ -1,4 +1,6 @@
-package com.unaidarioefra;
+package com.unaidarioefra.Modelo;
+
+import java.util.ArrayList;
 
 public class Juego {
     private static Juego instance;
@@ -11,14 +13,6 @@ public class Juego {
         return instance;
     }
 
-    public void iniciarJuego() {
-        // Lógica para iniciar el juego
-    }
-
-
-    public void finalizarJuego() {
-        // Lógica para finalizar el juego
-    }
 
     public int getNivel() {
         return nivel;
@@ -34,5 +28,10 @@ public class Juego {
     public void iniciarentidades() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'iniciarentidades'");
+    }
+
+    public ArrayList<Enemigo> getEnemigos() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getEnemigos'");
     }
 }

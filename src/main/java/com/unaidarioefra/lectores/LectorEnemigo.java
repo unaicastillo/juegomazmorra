@@ -1,5 +1,7 @@
 package com.unaidarioefra.lectores;
 
+import com.unaidarioefra.Enemigo;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,9 +9,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LectorEnemigo {
-    public static ArrayList<HashMap<String, Integer>> leerCsv() {
+    public static ArrayList<Enemigo> leerEnemigos() {
+        ArrayList<Enemigo> enemigos = new ArrayList<>();
+        ArrayList<HashMap<String, Integer>> datosEnemigos = leerCsv();
+
+        for (HashMap<String, Integer> atributos : datosEnemigos) {
+            Enemigo enemigo = new Enemigo(atributos);
+            enemigos.add(enemigo);
+        }
+
+        return enemigos;
+    }
+
+    private static ArrayList<HashMap<String, Integer>> leerCsv() {
         ArrayList<HashMap<String, Integer>> arrayList = new ArrayList<>();
-        String archivoCsv = "ArchivoEnemigos.csv";
+        String archivoCsv = "src/main/resources/com/unaidarioefra/files/ArchivoEnemigos.csv";
         HashMap<String, Integer> archivoEnemigos;
         try (BufferedReader br = new BufferedReader(new FileReader(archivoCsv))) {
             String line;

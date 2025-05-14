@@ -4,6 +4,8 @@ package com.unaidarioefra;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.unaidarioefra.Modelo.Juego;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,7 +27,10 @@ public class SceneManager {
     @SuppressWarnings("exports")
     public void init(Stage stage){
         this.stage=stage;
-        
+        SceneManager sceneManager = SceneManager.getInstance();
+        sceneManager.setScene(SceneID.VistaEstadisticas, "VistaEstadisticas", 800, 600);
+        sceneManager.setScene(SceneID.VistaJuego, "VistaJuego", 800, 600);
+        sceneManager.loadScene(SceneID.VistaEstadisticas);
     }
 
 
@@ -45,9 +50,9 @@ public class SceneManager {
     }
 
     public void loadScene(SceneID sceneID) {
-        if (scenes.containsKey(sceneID)){
-            stage.setScene(scenes.get(sceneID)); 
-            stage.show(); 
+        if (scenes.containsKey(sceneID)) {
+            stage.setScene(scenes.get(sceneID));
+            stage.show(); // Asegúrate de que el escenario se muestre
         }
     }
 

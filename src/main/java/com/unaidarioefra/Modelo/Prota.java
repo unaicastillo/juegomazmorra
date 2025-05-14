@@ -18,10 +18,13 @@ public class Prota {
     }
     public void setVida(int vida) {
         
-        if (vida < 0|| vida > 20) {
-            this.vida=15;
+        if (vida < 0 || vida > 20) {
+            this.vida = 15;
+        } else {
+            this.vida = vida;
         }
-        this.vida = vida;
+        
+
     }
     public int getAtaque() {
         return ataque;

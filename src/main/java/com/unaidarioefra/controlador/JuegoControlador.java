@@ -21,65 +21,75 @@ public class JuegoControlador implements Observer {
 
     @FXML
     private AnchorPane anchorPane;
-    @FXML
-    private GridPane gridPane;
 
+    private GridPane gridPane;
     private HashMap<Integer, Image> imagenesEnemigos;
     private ArrayList<Enemigo> enemigos;
 
-    GestorMapa gestorMapa;
-    Juego juego;
+    private GestorMapa gestorMapa;
+    private Juego juego;
 
     @FXML
     public void initialize() {
-        // Cargar imágenes de los enemigos
+        // Inicializar imágenes de enemigos
         imagenesEnemigos = new HashMap<>();
-        imagenesEnemigos.put(2, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esbirro.png")));
-        imagenesEnemigos.put(3, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esqueleto.png")));
-        imagenesEnemigos.put(4, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/zombie.png")));
-
-        // Obtener la lista de enemigos desde el juego
-        enemigos = Juego.getInstance().getEnemigos();
+        imagenesEnemigos.put(2, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esbirro.jpg")));
+        imagenesEnemigos.put(3, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esqueleto.jpg")));
+        imagenesEnemigos.put(4, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/zombie.jpg")));
     }
-    
+
+    // Este método debe llamarse desde el controlador de portada
+    public void iniciar() {
+        this.juego = Juego.getInstance();
+        this.gestorMapa = juego.getGestorMapas();
+        this.enemigos = juego.getEnemigos();
+
+        inicializarVista();
+        generarMapa();
+        pintarPersonajes();
+    }
+
     public void inicializarVista() {
-        // Crear el SplitPane
+        // Crear el panel dividido principal
         SplitPane splitPane = new SplitPane();
-        splitPane.setDividerPositions(0.75); // 75% para la primera parte
-        
+        splitPane.setDividerPositions(0.75);
+
         // Crear el GridPane para el mapa
         gridPane = new GridPane();
-        gridPane.setPrefSize(600, 600); // Tamaño inicial
+        gridPane.setPrefSize(600, 600);
+
+        // Configurar 20 filas y columnas
         for (int i = 0; i < 20; i++) {
             gridPane.getRowConstraints().add(new javafx.scene.layout.RowConstraints());
             gridPane.getColumnConstraints().add(new javafx.scene.layout.ColumnConstraints());
         }
 
-        // Crear el VBox para los atributos
+        // Crear la barra lateral (vbox)
         VBox vbox = new VBox();
-        vbox.setPrefWidth(200); // Tamaño inicial para el 25%
+        vbox.setPrefWidth(200);
         vbox.setSpacing(10);
 
-        // Añadir el GridPane y el VBox al SplitPane
+        // Añadir el gridPane y vbox al SplitPane
         splitPane.getItems().addAll(gridPane, vbox);
 
-        // Ajustar el SplitPane al AnchorPane
+        // Establecer anclajes del SplitPane al AnchorPane
         AnchorPane.setTopAnchor(splitPane, 0.0);
         AnchorPane.setBottomAnchor(splitPane, 0.0);
         AnchorPane.setLeftAnchor(splitPane, 0.0);
         AnchorPane.setRightAnchor(splitPane, 0.0);
 
-        // Añadir el SplitPane al AnchorPane
+        // Añadir el SplitPane al AnchorPane principal
         anchorPane.getChildren().add(splitPane);
     }
-    
+
     public void generarMapa() {
-        
         gridPane.getChildren().clear();
-        Mapa mapaActual = Juego.getInstance().getGestorMapas().getMapaActual();
+
+        Mapa mapaActual = juego.getGestorMapas().getMapaActual();
         int[][] matriz = mapaActual.getMapa();
         int filas = matriz.length;
         int columnas = matriz[0].length;
+
         double anchoCelda = gridPane.getPrefWidth() / columnas;
         double altoCelda = gridPane.getPrefHeight() / filas;
 
@@ -89,12 +99,7 @@ public class JuegoControlador implements Observer {
         for (int fila = 0; fila < filas; fila++) {
             for (int columna = 0; columna < columnas; columna++) {
                 int valor = matriz[fila][columna];
-                ImageView imageView;
-                if (valor == 0) {
-                    imageView = new ImageView(suelo);
-                } else {
-                    imageView = new ImageView(pared);
-                }
+                ImageView imageView = new ImageView(valor == 0 ? suelo : pared);
                 imageView.setFitWidth(anchoCelda);
                 imageView.setFitHeight(altoCelda);
                 imageView.setPreserveRatio(false);
@@ -103,11 +108,10 @@ public class JuegoControlador implements Observer {
         }
     }
 
-    public void cambiarMapa(){
-        boolean haySiguiente=gestorMapa.avanzarAlSiguienteMapa();
-        if (haySiguiente){
-            HashMap<String,Mapa> mapas= juego.getGestorMapas().getMapas();
-            mapas.clear();
+    public void cambiarMapa() {
+        boolean haySiguiente = gestorMapa.avanzarAlSiguienteMapa();
+        if (haySiguiente) {
+            juego.getGestorMapas().getMapas().clear();
             generarMapa();
             juego.iniciarentidades();
             pintarPersonajes();
@@ -115,31 +119,27 @@ public class JuegoControlador implements Observer {
     }
 
     private void pintarPersonajes() {
-        // Limpiar las imágenes de los enemigos en el mapa
+        // Limpiar personajes anteriores (pero no las celdas base)
         gridPane.getChildren().removeIf(node -> node instanceof ImageView && node.getUserData() != null);
 
-        // Pintar cada enemigo en su posición
         for (Enemigo enemigo : enemigos) {
             ImageView enemigoView = new ImageView(imagenesEnemigos.get(enemigo.getTipo()));
-            enemigoView.setFitWidth(gridPane.getPrefWidth() / 20); // Ajustar al tamaño de la celda
+            enemigoView.setFitWidth(gridPane.getPrefWidth() / 20);
             enemigoView.setFitHeight(gridPane.getPrefHeight() / 20);
             enemigoView.setPreserveRatio(true);
-            enemigoView.setUserData("enemigo"); // Marcar como enemigo para poder limpiar después
+            enemigoView.setUserData("enemigo");
             gridPane.add(enemigoView, enemigo.getPosicionX(), enemigo.getPosicionY());
         }
     }
 
     private void moverEnemigos() {
-        // Mover cada enemigo a una nueva posición aleatoria dentro del mapa
         for (Enemigo enemigo : enemigos) {
-            int nuevaX = enemigo.getPosicionX() + (int) (Math.random() * 3) - 1; // Movimiento aleatorio (-1, 0, 1)
+            int nuevaX = enemigo.getPosicionX() + (int) (Math.random() * 3) - 1;
             int nuevaY = enemigo.getPosicionY() + (int) (Math.random() * 3) - 1;
 
-            // Asegurarse de que el enemigo no salga del mapa
             nuevaX = Math.max(0, Math.min(nuevaX, 19));
             nuevaY = Math.max(0, Math.min(nuevaY, 19));
 
-            // Actualizar la posición del enemigo
             enemigo.setPosicionX(nuevaX);
             enemigo.setPosicionY(nuevaY);
         }
@@ -147,7 +147,6 @@ public class JuegoControlador implements Observer {
 
     @Override
     public void onChange() {
-        // Mover enemigos y actualizar el mapa
         moverEnemigos();
         pintarPersonajes();
     }

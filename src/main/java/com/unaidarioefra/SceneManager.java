@@ -1,10 +1,7 @@
 package com.unaidarioefra;
 
-
 import java.io.IOException;
 import java.util.HashMap;
-
-import com.unaidarioefra.Modelo.Juego;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,27 +12,32 @@ public class SceneManager {
     private static SceneManager instance;
     private Stage stage;
     private HashMap<SceneID, Scene> scenes;
+
     private SceneManager() {
         scenes = new HashMap<>();
     }
-    public static SceneManager getInstance(){
-        if (instance==null){
-            instance= new SceneManager();
+
+    public static SceneManager getInstance() {
+        if (instance == null) {
+            instance = new SceneManager();
         }
         return instance;
     }
+
     @SuppressWarnings("exports")
-    public void init(Stage stage){
-        this.stage=stage;
+    public void init(Stage stage) {
+        this.stage = stage;
+
+        // Crear instancias de escenas
         SceneManager sceneManager = SceneManager.getInstance();
         sceneManager.setScene(SceneID.VistaEstadisticas, "VistaEstadisticas", 800, 600);
         sceneManager.setScene(SceneID.VistaJuego, "VistaJuego", 800, 600);
+
+        // Cargar vista inicial
         sceneManager.loadScene(SceneID.VistaEstadisticas);
     }
 
-
-
-    public void setScene(SceneID sceneID, String fxml, int width, int height){
+    public void setScene(SceneID sceneID, String fxml, int width, int height) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("views/" + fxml + ".fxml"));
             Parent root = fxmlLoader.load();
@@ -45,15 +47,19 @@ public class SceneManager {
             e.printStackTrace(); 
         }
     }
-    public void removeScene(SceneID sceneID){
+
+    public void removeScene(SceneID sceneID) {
         scenes.remove(sceneID); 
     }
 
     public void loadScene(SceneID sceneID) {
-        if (scenes.containsKey(sceneID)){
+        if (scenes.containsKey(sceneID)) {
             stage.setScene(scenes.get(sceneID)); 
             stage.show(); 
         }
     }
 
+    public Stage getPrimaryStage() {
+        return stage;
+    }
 }

@@ -1,5 +1,5 @@
 package com.unaidarioefra;
 
 public enum SceneID {
-    VistaEstadisticas,VistaJuego,VistaPortada
+    VistaEstadisticas,VistaJuego
 }

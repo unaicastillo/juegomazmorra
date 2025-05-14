@@ -2,6 +2,7 @@ package com.unaidarioefra.controlador;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.io.InputStream;
 
 import com.unaidarioefra.Interfaz.Observer;
 import com.unaidarioefra.Modelo.Enemigo;
@@ -150,5 +151,14 @@ public class JuegoControlador implements Observer {
         // Mover enemigos y actualizar el mapa
         moverEnemigos();
         pintarPersonajes();
+    }
+
+    public void cargarImagen() {
+        InputStream inputStream = getClass().getResourceAsStream("/com/unaidarioefra/images/imagen.png");
+        if (inputStream == null) {
+            System.err.println("Error: No se pudo cargar la imagen en la ruta especificada.");
+        } else {
+            Image imagen = new Image(inputStream);
+        }
     }
 }

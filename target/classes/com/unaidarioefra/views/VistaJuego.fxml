@@ -5,4 +5,9 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.unaidarioefra.controlador.JuegoControlador">
     <!-- Contenido dinámico será añadido desde el controlador -->
+    <ImageView>
+        <image>
+            <Image url="@/com/unaidarioefra/images/imagen.png" />
+        </image>
+    </ImageView>
 </AnchorPane>

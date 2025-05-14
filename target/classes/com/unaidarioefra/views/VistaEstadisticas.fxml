@@ -5,62 +5,29 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.unaidarioefra.controlador.PortadaControlador">
     <VBox alignment="CENTER" spacing="20" prefWidth="400" prefHeight="600" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-        <!-- Vida -->
+        <!-- Campos de texto para las estadísticas -->
         <HBox alignment="CENTER" spacing="10">
-            <ImageView fitWidth="50" fitHeight="50" preserveRatio="true">
-                <image>
-                    <Image url="@images/vida.png" />
-                </image>
-            </ImageView>
             <Label text="Vida:" />
             <TextField fx:id="vidaField" promptText="1-20" maxWidth="50" />
         </HBox>
-
-        <!-- Ataque -->
         <HBox alignment="CENTER" spacing="10">
-            <ImageView fitWidth="50" fitHeight="50" preserveRatio="true">
-                <image>
-                    <Image url="@images/ataque.png" />
-                </image>
-            </ImageView>
             <Label text="Ataque:" />
             <TextField fx:id="ataqueField" promptText="1-20" maxWidth="50" />
         </HBox>
-
-        <!-- Defensa -->
         <HBox alignment="CENTER" spacing="10">
-            <ImageView fitWidth="50" fitHeight="50" preserveRatio="true">
-                <image>
-                    <Image url="@images/defensa.png" />
-                </image>
-            </ImageView>
             <Label text="Defensa:" />
             <TextField fx:id="defensaField" promptText="1-20" maxWidth="50" />
         </HBox>
-
-        <!-- Evasión -->
         <HBox alignment="CENTER" spacing="10">
-            <ImageView fitWidth="50" fitHeight="50" preserveRatio="true">
-                <image>
-                    <Image url="@images/evasion.png" />
-                </image>
-            </ImageView>
             <Label text="Evasión:" />
             <TextField fx:id="evasionField" promptText="1-20" maxWidth="50" />
         </HBox>
-
-        <!-- Velocidad -->
         <HBox alignment="CENTER" spacing="10">
-            <ImageView fitWidth="50" fitHeight="50" preserveRatio="true">
-                <image>
-                    <Image url="@images/velocidad.png" />
-                </image>
-            </ImageView>
             <Label text="Velocidad:" />
             <TextField fx:id="velocidadField" promptText="1-20" maxWidth="50" />
         </HBox>
 
-        <!-- Botón -->
+        <!-- Botón para confirmar -->
         <Button fx:id="confirmButton" text="Confirmar" disable="true" onAction="#cambiarAVistaJuego" />
     </VBox>
 </AnchorPane>

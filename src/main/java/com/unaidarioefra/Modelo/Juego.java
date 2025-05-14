@@ -1,10 +1,12 @@
 package com.unaidarioefra.Modelo;
 
 import java.util.ArrayList;
+import com.unaidarioefra.lectores.LectorEnemigo;
 
 public class Juego {
     private static Juego instance;
     private int nivel;
+    private ArrayList<Enemigo> enemigos; // Lista de enemigos
 
     public static Juego getInstance() {
         if (instance == null) {
@@ -13,6 +15,9 @@ public class Juego {
         return instance;
     }
 
+    private Juego() {
+        enemigos = new ArrayList<>(); // Inicializar la lista de enemigos
+    }
 
     public int getNivel() {
         return nivel;
@@ -21,17 +26,16 @@ public class Juego {
     public void setNivel(int nivel) {
         this.nivel = nivel;
     }
+
     public GestorMapa getGestorMapas() {
         return new GestorMapa();
     }
 
     public void iniciarentidades() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iniciarentidades'");
+        enemigos = LectorEnemigo.leerEnemigos();
     }
 
     public ArrayList<Enemigo> getEnemigos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEnemigos'");
+        return enemigos; 
     }
 }

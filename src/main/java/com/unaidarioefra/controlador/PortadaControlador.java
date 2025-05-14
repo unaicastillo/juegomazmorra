@@ -33,7 +33,7 @@ public class PortadaControlador {
     @FXML
     public void initialize() {
         // Inicializar el protagonista
-        Prota protagonista ;
+        prota = new Prota(0, 0, 0, 0, 0);
 
         // Añadir listeners para habilitar el botón solo cuando todos los campos estén rellenados
         vidaField.textProperty().addListener((observable, oldValue, newValue) -> validarCampos());
@@ -41,7 +41,6 @@ public class PortadaControlador {
         defensaField.textProperty().addListener((observable, oldValue, newValue) -> validarCampos());
         evasionField.textProperty().addListener((observable, oldValue, newValue) -> validarCampos());
         velocidadField.textProperty().addListener((observable, oldValue, newValue) -> validarCampos());
-        confirmButton.setDisable(true); // Deshabilitar el botón al inicio
     }
 
     private void validarCampos() {

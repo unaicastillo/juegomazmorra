@@ -50,9 +50,9 @@ public class SceneManager {
     }
 
     public void loadScene(SceneID sceneID) {
-        if (scenes.containsKey(sceneID)){
-            stage.setScene(scenes.get(sceneID)); 
-            stage.show(); 
+        if (scenes.containsKey(sceneID)) {
+            stage.setScene(scenes.get(sceneID));
+            stage.show(); // Asegúrate de que el escenario se muestre
         }
     }
 

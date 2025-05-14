@@ -44,6 +44,8 @@ public class PortadaControlador {
         confirmButton.setDisable(true); // Deshabilitar el botón al inicio
     }
 
+    
+
     private void validarCampos() {
         boolean camposValidos = !vidaField.getText().isEmpty() &&
                                 !ataqueField.getText().isEmpty() &&

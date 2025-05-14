@@ -28,18 +28,13 @@ public class JuegoControlador implements Observer {
     private ArrayList<Enemigo> enemigos;
 
     GestorMapa gestorMapa;
+    
     Juego juego;
 
-    @FXML
+    @FXML   //Cambio del Antiguo metodo initialize
     public void initialize() {
-        // Cargar imágenes de los enemigos
-        imagenesEnemigos = new HashMap<>();
-        imagenesEnemigos.put(2, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esbirro.png")));
-        imagenesEnemigos.put(3, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/esqueleto.png")));
-        imagenesEnemigos.put(4, new Image(getClass().getResourceAsStream("/com/unaidarioefra/images/zombie.png")));
-
-        // Obtener la lista de enemigos desde el juego
-        enemigos = Juego.getInstance().getEnemigos();
+        inicializarVista(); // Configurar la vista inicial
+        generarMapa();      // Generar el tablero
     }
     
     public void inicializarVista() {
@@ -73,31 +68,43 @@ public class JuegoControlador implements Observer {
         anchorPane.getChildren().add(splitPane);
     }
     
-    public void generarMapa() {
-        
+    public void generarMapa() { //Cambio del metodo generarMapa
+        // Limpiar el GridPane antes de generar el nuevo mapa
         gridPane.getChildren().clear();
+
+        // Obtener el mapa actual desde el gestor de mapas
         Mapa mapaActual = Juego.getInstance().getGestorMapas().getMapaActual();
         int[][] matriz = mapaActual.getMapa();
         int filas = matriz.length;
         int columnas = matriz[0].length;
+
+        // Calcular el tamaño de cada celda
         double anchoCelda = gridPane.getPrefWidth() / columnas;
         double altoCelda = gridPane.getPrefHeight() / filas;
 
+        // Cargar las imágenes de suelo y pared
         Image suelo = new Image(getClass().getResourceAsStream(mapaActual.getSuelo()));
         Image pared = new Image(getClass().getResourceAsStream(mapaActual.getPared()));
 
+        // Recorrer la matriz y generar las celdas
         for (int fila = 0; fila < filas; fila++) {
             for (int columna = 0; columna < columnas; columna++) {
                 int valor = matriz[fila][columna];
                 ImageView imageView;
+
+                // Determinar si la celda es suelo o pared
                 if (valor == 0) {
                     imageView = new ImageView(suelo);
                 } else {
                     imageView = new ImageView(pared);
                 }
+
+                // Ajustar el tamaño de la celda
                 imageView.setFitWidth(anchoCelda);
                 imageView.setFitHeight(altoCelda);
                 imageView.setPreserveRatio(false);
+
+                // Añadir la celda al GridPane
                 gridPane.add(imageView, columna, fila);
             }
         }
@@ -150,5 +157,13 @@ public class JuegoControlador implements Observer {
         // Mover enemigos y actualizar el mapa
         moverEnemigos();
         pintarPersonajes();
+    }
+
+
+    public GestorMapa getGestorMapas() {
+    if (gestorMapa == null) {
+        gestorMapa = new GestorMapa();
+    }
+    return gestorMapa;
     }
 }

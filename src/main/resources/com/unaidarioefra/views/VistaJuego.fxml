@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.unaidarioefra.controlador.JuegoControlador">
-    <!-- Contenido dinámico será añadido desde el controlador -->
+    <SplitPane dividerPositions="0.75" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <GridPane fx:id="gridPane" prefWidth="600" prefHeight="600" />
+        <VBox prefWidth="200" spacing="10" />
+    </SplitPane>
 </AnchorPane>

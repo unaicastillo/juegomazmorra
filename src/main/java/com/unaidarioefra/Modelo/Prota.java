@@ -6,12 +6,16 @@ public class Prota {
     public int defensa;
     public int evasion;
     public int velocidad;
+    public int posicionX;
+    public int posicionY;
     public Prota(int vida, int ataque, int defensa, int evasion, int velocidad) {
         this.vida = vida;
         this.ataque = ataque;
         this.defensa = defensa;
         this.evasion = evasion;
         this.velocidad = velocidad;
+        this.posicionX = posicionX;
+        this.posicionY = posicionY;
     }
     public int getVida() {
         return vida;
@@ -62,4 +66,42 @@ public class Prota {
         this.velocidad = velocidad;
     }
 
+    public int getPosicionX() {
+        return this.posicionX;
+    }
+
+    public void setPosicionX(int posicionX) {
+        this.posicionX = posicionX;
+    }
+
+    public int getPosicionY() {
+        return this.posicionY;
+    }
+
+    public void setPosicionY(int posicionY) {
+        this.posicionY = posicionY;
+    }
+
+
+    //Metodo por el cual un enemigo ataca al protagonista donde el daño del enemigo = damage
+    public void atacado(int damage){
+        if (defensa>=damage){
+            defensa-=damage;
+            vida = restarVida(vida, (damage/2));
+        }
+        else{
+            vida = restarVida( vida, ((damage-defensa)+(defensa/2)) );
+            defensa = 0;
+        }
+    }
+
+    //Comprobar que la vida restada no sea menor que 0
+    public int restarVida(int vida, int damage){
+        if(damage >= vida){
+            return 0;
+        }
+        else{
+            return vida-damage;
+        }
+    }
 }
